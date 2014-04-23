@@ -1,24 +1,24 @@
 %%%-------------------------------------------------------------------
 %%% @author Ryan Huffman <ryanhuffman@gmail.com>
-%%% @copyright 2011, Ryan Huffman
+%%% @copyright 2011, Ryan Huffman modified by Joey Erskine 
 %%% @doc Twilio machine.
 %%%
 %%% @end
 %%% Created : 10 Jul 2011
 %%%-------------------------------------------------------------------
--module(twilio_rt_machine).
+-module(twilio_rt_machine).  %%module basic unites of code in erlang, loads functions from twilio. 
 
--export([handle_request/2]).
+-export([handle_request/2]). %%list of functions exported from the module, /2 denotes two arguements
 
--include("twilio.hrl").
+-include("twilio.hrl"). %%include twilio file.
 
 %% @doc Handle incoming twilio requests on "/machine".
 handle_request(["start"], Params) ->
     % these are values sent in from twilio
-    City = proplists:get_value("ToCity", Params),
+    City = proplists:get_value("ToCity", Params),   %%property list, 
     State = proplists:get_value("ToState", Params),
     [
-        #say{text="Hello!  Welcome to the spawnfest call center."},
+        #say{text="Hello! Welcome to Creighton."},
         #say{text="It appears you are calling from " ++ City ++
             ", " ++ State},
         #redirect{url="options"}
@@ -31,9 +31,9 @@ handle_request(["options"], _Params) ->
             num_digits=2,
             body=[
                 #say{text=
-                    "Press 1 to hear the time until spawnfest is complete. "
-                    "Press 2 to hear a joke. "
-                    "Press 3 to hear me sing a song. "
+                    "Press 1 if you are a senior. "
+                    "Press 2 if you are a junior. "
+                    "Press 3 to found out facts about Dr.Reed. "
                     "Press 4 to end this call. "
                     "Press 0 to hear the options again. "
                 }
@@ -44,13 +44,12 @@ handle_request(["selected_option"], Params) ->
     case Digits of
         "1" ->
             [
-                #say{text=example_utils:spawnfest_complete_string()},
+                #say{text="Congrats, no final for you. "},
                 #redirect{url="options"}
             ];
         "2" ->
             [
-                #say{text="Sorry, we just ran out of jokes. "
-                    "Perhaps you would like to choose another option?"},
+                #say{text="Your final is on Tuesday, at 10pm. "},
                 #redirect{url="options"}
             ];
         "3" ->
