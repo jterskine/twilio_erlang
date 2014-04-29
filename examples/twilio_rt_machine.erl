@@ -20,8 +20,8 @@ handle_request(["options"], _Params) ->
             timeout=2,
             body=[
                 #say{text=
-                    "Press 1 if you are a senior. "
-                    "Press 2 if you are a junior. "
+                    "Press 1 if you are a senior."
+                    "Press 2 if you are a junior."
                 }
             ]}
     ];
@@ -30,12 +30,12 @@ handle_request(["selected_option"], Params) ->
     case Digits of
         "1" ->
             [
-                #say{text="Congrats, no final for you. "},
+                #say{text="Congrats, no final for you."},
                 #redirect{url="options"}
             ];
         "2" ->
             [
-                #say{text="Your final is on Tuesday, at 10pm. "},
+                #say{text="Sorry, both Joe Kromrey and you have to take the final."},
                 #redirect{url="options"}
             ];
         _ ->
